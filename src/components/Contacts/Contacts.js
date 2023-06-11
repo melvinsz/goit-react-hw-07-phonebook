@@ -1,16 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  deleteContact,
-  filterContacts,
-  getContactsValue,
-  getFilterValue,
-} from 'components/redux/contactsList';
+import { deleteContact, filterContacts } from 'components/redux/slice';
 import Input from 'components/Input/Input';
 import Notification from 'components/Notification/Notification';
+import {
+  selectContactsList,
+  selectFilterValue,
+} from 'components/redux/Selectors';
 
 const Contacts = () => {
-  const contacts = useSelector(getContactsValue);
-  const filter = useSelector(getFilterValue);
+  const items = useSelector(selectContactsList);
+  const filterValue = useSelector(selectFilterValue);
   const dispatch = useDispatch();
 
   const handleDelete = id => {
@@ -22,15 +21,15 @@ const Contacts = () => {
     dispatch(filterContacts(value));
   };
 
-  const filteredContacts = contacts.filter(contact =>
-    contact.name.includes(filter)
+  const filteredContacts = items.filter(
+    item => item.name && item.name.includes(filterValue)
   );
 
   return (
     <div>
       <Input
         label="Find contacts by name"
-        value={filter}
+        value={filterValue}
         onChange={handleChange}
         type="text"
         name="filter"

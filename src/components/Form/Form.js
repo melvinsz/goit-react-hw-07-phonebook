@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { addContact } from 'components/redux/contactsList';
+import { addContact } from 'components/redux/slice';
 import Input from 'components/Input/Input';
 
 const Form = () => {
