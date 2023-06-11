@@ -5,9 +5,17 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 const initialState = {
-  contacts: [],
+  contacts: {
+    items: [],
+    isLoading: false,
+    error: null,
+  },
   filter: '',
 };
+// {
+//   contacts: [],
+//   filter: '',
+// };
 
 const contactsList = createSlice({
   name: 'contacts',
