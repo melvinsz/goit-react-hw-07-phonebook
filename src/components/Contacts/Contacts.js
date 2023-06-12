@@ -4,9 +4,9 @@ import Input from 'components/Input/Input';
 import Notification from 'components/Notification/Notification';
 import {
   selectContactsList,
-  selectError,
+  // selectError,
+  // selectIsLoading,
   selectFilterValue,
-  selectIsLoading,
 } from 'components/redux/Selectors';
 import { useEffect } from 'react';
 import { fetchAll } from 'components/redux/operations';
@@ -16,8 +16,8 @@ const Contacts = () => {
 
   const items = useSelector(selectContactsList);
   const filterValue = useSelector(selectFilterValue);
-  const isLoading = useSelector(selectIsLoading);
-  const Error = useSelector(selectError);
+  // const isLoading = useSelector(selectIsLoading);
+  // const Error = useSelector(selectError);
 
   useEffect(() => {
     dispatch(fetchAll());
