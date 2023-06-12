@@ -4,13 +4,24 @@ import Input from 'components/Input/Input';
 import Notification from 'components/Notification/Notification';
 import {
   selectContactsList,
+  selectError,
   selectFilterValue,
+  selectIsLoading,
 } from 'components/redux/Selectors';
+import { useEffect } from 'react';
+import { fetchAll } from 'components/redux/operations';
 
 const Contacts = () => {
+  const dispatch = useDispatch();
+
   const items = useSelector(selectContactsList);
   const filterValue = useSelector(selectFilterValue);
-  const dispatch = useDispatch();
+  const isLoading = useSelector(selectIsLoading);
+  const Error = useSelector(selectError);
+
+  useEffect(() => {
+    dispatch(fetchAll());
+  }, [dispatch]);
 
   const handleDelete = id => {
     dispatch(deleteContact(id));
@@ -22,7 +33,8 @@ const Contacts = () => {
   };
 
   const filteredContacts = items.filter(
-    item => item.name && item.name.includes(filterValue)
+    item =>
+      item.name && item.name.toLowerCase().includes(filterValue.toLowerCase())
   );
 
   return (
