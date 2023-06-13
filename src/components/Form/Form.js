@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { addContact } from 'components/redux/slice';
+import { addContact } from 'components/redux/operations';
 import Input from 'components/Input/Input';
 
 const Form = () => {
@@ -9,7 +9,7 @@ const Form = () => {
     event.preventDefault();
     const name = event.target.name.value;
     const number = event.target.number.value;
-    dispatch(addContact(name, number));
+    dispatch(addContact({ name, number }));
     event.target.reset();
   };
 

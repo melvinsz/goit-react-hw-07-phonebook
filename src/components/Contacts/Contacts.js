@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteContact, filterContacts } from 'components/redux/slice';
+import { filterContacts } from 'components/redux/slice';
 import Input from 'components/Input/Input';
 import Notification from 'components/Notification/Notification';
 import {
@@ -9,7 +9,7 @@ import {
   selectFilterValue,
 } from 'components/redux/Selectors';
 import { useEffect } from 'react';
-import { fetchAll } from 'components/redux/operations';
+import { fetchAll, deleteContact } from 'components/redux/operations';
 
 const Contacts = () => {
   const dispatch = useDispatch();
