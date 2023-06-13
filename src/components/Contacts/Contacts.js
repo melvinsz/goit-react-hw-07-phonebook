@@ -4,8 +4,6 @@ import Input from 'components/Input/Input';
 import Notification from 'components/Notification/Notification';
 import {
   selectContactsList,
-  // selectError,
-  // selectIsLoading,
   selectFilterValue,
 } from 'components/redux/Selectors';
 import { useEffect } from 'react';
@@ -16,8 +14,6 @@ const Contacts = () => {
 
   const items = useSelector(selectContactsList);
   const filterValue = useSelector(selectFilterValue);
-  // const isLoading = useSelector(selectIsLoading);
-  // const Error = useSelector(selectError);
 
   useEffect(() => {
     dispatch(fetchAll());
@@ -51,10 +47,10 @@ const Contacts = () => {
         <Notification message="Contact list is empty." />
       ) : (
         <ul>
-          {filteredContacts.map(({ id, name, number }) => (
+          {filteredContacts.map(({ id, name, phone }) => (
             <li key={id}>
               <span>{name}</span>
-              <span>{number}</span>
+              <span>{phone}</span>
               <button type="button" onClick={() => handleDelete(id)}>
                 Delete
               </button>

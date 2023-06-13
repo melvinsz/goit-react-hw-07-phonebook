@@ -1,5 +1,3 @@
-// import { nanoid } from 'nanoid';
-import Notiflix from 'notiflix';
 import { createSlice } from '@reduxjs/toolkit';
 import { addContact, deleteContact, fetchAll } from './operations';
 
@@ -42,15 +40,6 @@ export const contactsSlice = createSlice({
       .addCase(addContact.fulfilled, (state, action) => {
         state.contacts.isLoading = false;
         state.contacts.error = null;
-        const hasName = state.contacts.items.some(
-          item => item.name === action.payload.name
-        );
-        if (hasName) {
-          Notiflix.Notify.warning(
-            `Contact "${action.payload.name}" already exists.`
-          );
-          return;
-        }
         state.contacts.items = state.contacts.items.concat(action.payload);
       })
       .addCase(addContact.rejected, (state, action) => {
@@ -59,14 +48,17 @@ export const contactsSlice = createSlice({
       })
       .addCase(deleteContact.pending, state => {
         state.contacts.isLoading = true;
+        state.contacts.error = null;
       })
       .addCase(deleteContact.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.contacts.isLoading = false;
         state.contacts.error = null;
-        state.contacts.items = state.contacts.items.filter(
-          contact => contact.id !== action.payload
+        const index = state.contacts.items.findIndex(
+          contact => contact.id === action.payload.id
         );
+        if (index !== -1) {
+          state.contacts.items.splice(index, 1);
+        }
       })
       .addCase(deleteContact.rejected, (state, action) => {
         state.contacts.isLoading = false;
